@@ -127,7 +127,7 @@ module BestInPlace
         end
 
       else
-        object.send(field).to_s
+        string_value(object.send(field))
       end
     end
 
