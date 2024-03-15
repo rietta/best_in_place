@@ -1,5 +1,14 @@
 module BestInPlace
   module Helper
+
+    def string_value(value)
+      if value.respond_to?(:to_fs)
+        return value.to_fs
+      else
+        return value.to_s
+      end
+    end
+
     def best_in_place(object, field, opts = {})
 
       best_in_place_assert_arguments(opts)
@@ -44,7 +53,7 @@ module BestInPlace
       options[:data]['bip-ok-button-class'] = opts[:ok_button_class].presence
       options[:data]['bip-cancel-button'] = opts[:cancel_button].presence
       options[:data]['bip-cancel-button-class'] = opts[:cancel_button_class].presence
-      options[:data]['bip-original-content'] = html_escape(opts[:value] || value).presence
+      options[:data]['bip-original-content'] = html_escape(string_value(opts[:value] || value)).presence
 
       options[:data]['bip-skip-blur'] = opts.has_key?(:skip_blur) ? opts[:skip_blur].presence : BestInPlace.skip_blur
 
@@ -57,7 +66,7 @@ module BestInPlace
       end
 
       options[:data]['bip-confirm'] = opts[:confirm].presence
-      options[:data]['bip-value'] = html_escape(value).presence
+      options[:data]['bip-value'] = html_escape(string_value(value)).presence
 
       if opts[:raw]
         options[:data]['bip-raw'] = 'true'
